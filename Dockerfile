@@ -25,8 +25,11 @@ RUN npm install
 # Copia o resto dos arquivos do projeto
 COPY . .
 
+# Executa o script de build para compilar o TypeScript
+RUN npm run build
+
 # Expõe a porta 3000
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
-CMD ["npm", "start"]
+# Inicia a aplicação usando o arquivo compilado
+CMD ["node", "dist/app.js"]
