@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     chromium \
     fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf fonts-liberation \
     libxss1 \
+    ca-certificates \
+    dumb-init \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,14 +18,20 @@ RUN apt-get update && apt-get install -y \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
+# Cria um usuário não-root
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /app
+
 # Copia os arquivos package.json e package-lock.json
-COPY package*.json ./
+COPY --chown=pptruser:pptruser package*.json ./
 
 # Instala as dependências
 RUN npm install
 
 # Copia o resto dos arquivos do projeto
-COPY . .
+COPY --chown=pptruser:pptruser . .
 
 # Executa o script de build para compilar o TypeScript
 RUN npm run build
@@ -31,5 +39,9 @@ RUN npm run build
 # Expõe a porta 3000
 EXPOSE 3000
 
-# Inicia a aplicação usando o arquivo compilado
+# Muda para o usuário não-root
+USER pptruser
+
+# Inicia a aplicação usando dumb-init como gerenciador de processos
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/app.js"]
