@@ -90,10 +90,8 @@ class LocoRaffleBot {
           ".chat-elements-item div"
         );
 
-        console.log(messageElements);
         return Array.from(messageElements).map((el) => {
           const isMod = el.querySelectorAll("span").length === 6;
-          console.log("MESSAGE FROM MOD", isMod);
           const usernameElement = el.querySelectorAll("span")[0];
           const messageTextElement = isMod
             ? el.querySelectorAll("span")[5]
@@ -112,8 +110,6 @@ class LocoRaffleBot {
           };
         });
       });
-
-      console.log("MESSAGES", messages);
 
       // Filtra apenas as novas mensagens
       const newMessages = messages.filter(
