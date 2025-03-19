@@ -133,12 +133,12 @@ class LocoRaffleBot {
       this.lastMessages = messages;
 
       // Continua monitorando
-      setTimeout(() => this.monitorChat(), 2000);
+      setTimeout(() => this.monitorChat(), 15000);
     } catch (error) {
       console.error("Erro ao monitorar o chat:", error);
 
       // Tenta reiniciar o monitoramento
-      setTimeout(() => this.monitorChat(), 5000);
+      setTimeout(() => this.monitorChat(), 20000);
     }
   }
 
@@ -164,14 +164,14 @@ class LocoRaffleBot {
     this.winners.push(winner);
 
     // Salva o resultado em um arquivo
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    fs.writeFileSync(
-      `sorteio-${timestamp}.txt`,
-      `Resultado do sorteio (${new Date().toLocaleString()})\n` +
-        `Vencedor: ${winner}\n` +
-        `Total de participantes: ${this.participants.size}\n` +
-        `Participantes: ${participantsArray.join(", ")}`
-    );
+    // const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    // fs.writeFileSync(
+    //   `sorteio-${timestamp}.txt`,
+    //   `Resultado do sorteio (${new Date().toLocaleString()})\n` +
+    //     `Vencedor: ${winner}\n` +
+    //     `Total de participantes: ${this.participants.size}\n` +
+    //     `Participantes: ${participantsArray.join(", ")}`
+    // );
 
     return { winner, participantCount: this.participants.size };
   }
