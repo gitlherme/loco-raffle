@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import ejs from "ejs";
 import puppeteer, { Browser, Page } from "puppeteer";
 import fs from "fs";
+import "dotenv/config";
 
 // Configuração do Fastify
 const __filename = fileURLToPath(import.meta.url);
@@ -219,9 +220,9 @@ async function startServer() {
 
   // Configuração do Bot
   const botConfig: BotConfig = {
-    locoUrl: "https://loco.com/streamers/teuzinfps", // Substitua pelo URL do seu canal
-    commandPrefix: "!sorteio",
-    ignoredUsers: ["NomeDoBot", "ModeradorDaStream"],
+    locoUrl: `https://loco.com/streamers/${process.env.STREAMER_USER_LOCO}`, // Substitua pelo URL do seu canal
+    commandPrefix: `${process.env.RAFFLE_COMMAND}`,
+    ignoredUsers: ["StreamVip"],
     minimumMessageLength: 3,
     browserHeadless: false, // Defina como true para executar em segundo plano
   };

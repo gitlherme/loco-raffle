@@ -12,6 +12,7 @@
   "dependencies": {
     "@fastify/static": "^6.10.2",
     "@fastify/view": "^7.4.1",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.9",
     "fastify": "^4.21.0",
     "puppeteer": "^22.8.2"
