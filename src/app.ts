@@ -51,6 +51,7 @@ class LocoRaffleBot {
 
     try {
       this.browser = await puppeteer.launch({
+        args: ["--no-sandbox"],
         headless: "shell",
         defaultViewport: { width: 1280, height: 800 },
       });
