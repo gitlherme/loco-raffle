@@ -63,7 +63,7 @@ class LocoRaffleBot {
 
       // Aguarda pela área de chat
       await this.page
-        .waitForSelector(".chat-elements-list", { timeout: 999999 })
+        .waitForSelector(".chat-elements-list", { timeout: 0 })
         .catch(() => {
           throw new Error(
             "Não foi possível encontrar a área de chat. Verifique o URL ou a estrutura da página."
